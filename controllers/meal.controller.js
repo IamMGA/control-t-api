@@ -16,3 +16,15 @@ module.exports.create = (req, res, next) => {
       }
     })
 }
+
+module.exports.get = (req, res, next) => {
+  const text = req.params.text;
+  Meal.find({name: text})
+    .then(meal => {
+      if (meal) {
+        res.json(meal)
+      } else {
+        next(new ApiError(`Meal not found`, 404));
+      }
+    }).catch(error => next(error));
+}
