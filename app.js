@@ -13,6 +13,7 @@ require('./configs/passport.config').setup(passport);
 
 const usersRoutes = require('./routes/users.routes');
 const sessionRoutes = require('./routes/session.routes');
+const mealRoutes = require('./routes/meal.routes');
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 //Routes
 app.use('/users', usersRoutes);
 app.use('/session', sessionRoutes);
+app.use('/meals', mealRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next)  => {
