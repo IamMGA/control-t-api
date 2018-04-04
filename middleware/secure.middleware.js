@@ -5,6 +5,6 @@ module.exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
-        next(new ApiError('Forbidden', 403));
+        next(new ApiError('Forbidden, need user logged', 403));
     }
 };

@@ -1,16 +1,45 @@
 const mongoose = require('mongoose');
 const mealSchema = new mongoose.Schema({
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"User"
+  },
   name: {
     type: String,
     required: [true, 'Product name is required']
   },
   specNutritions: {
-    type: Object,
-    required: [true, 'Nutrition spec is required']
-  },
-  image: {
-    type: String,
-    default: ''
+    servingSize: {
+      type: Number,
+      required: [true, 'Quantity is required']
+    },
+    calories: {
+      type: Number,
+      required: [true, 'Quantity is required']
+    },
+    fat: {
+      type: Number,
+      required: [true, 'Fat is required']
+    },
+    carbs: {
+      type: Number,
+      required: [true, 'Carbs is required']
+    },
+    protein: {
+      type: Number,
+      required: [true, 'Protein is required']
+    },
+    others: {
+      sugar: {
+        type: Number
+      },
+      cholesterol: {
+        type: Number
+      },
+      caffeine: {
+        type: Number
+      }
+    }
   }
 }, {
   timestamps: true,

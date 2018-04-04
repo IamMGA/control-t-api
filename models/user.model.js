@@ -14,6 +14,28 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'User needs a password']
+  },
+  info: {
+    sex: {
+      type: Number,
+      required: [true, 'Sex is required'],
+    },
+    weight: {
+      type: Number,
+      required: [true, 'Weight is required'],
+    },
+    stature: {
+      type: Number,
+      required: [true, 'Stature is required']
+    },
+    age: {
+      type: Number,
+      required: [true, 'Age is required']
+    },
+    activity: {
+      type: Number,
+      required: [true, 'Activity is required']
+    }
   }
 },
 { 

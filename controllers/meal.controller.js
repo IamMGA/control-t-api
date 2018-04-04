@@ -10,6 +10,8 @@ module.exports.list = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   const meal = new Meal(req.body);
+  meal.creator = res.locals.session._id;
+
   meal.save()
     .then(() => {
       res.status(201).json(meal);
@@ -24,10 +26,8 @@ module.exports.create = (req, res, next) => {
 }
 
 module.exports.get = (req, res, next) => {
-  const text = req.params.text;
-  Meal.find({
-      name: text
-    })
+  const id = req.params.id;
+  Meal.findById(id)
     .then(meal => {
       if (meal) {
         res.json(meal)
@@ -57,4 +57,4 @@ module.exports.edit = (req, res, next) => {
         next(new ApiError(error.message, 500));
       }
     });
-}
+  }
