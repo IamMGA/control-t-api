@@ -8,5 +8,6 @@ router.get('/', secureMiddleware.isAuthenticated, mealController.list);
 router.get('/:id', secureMiddleware.isAuthenticated, mealsMiddleware.checkValidId, mealController.get);
 router.post('/', secureMiddleware.isAuthenticated, mealController.create);
 router.put('/:id', secureMiddleware.isAuthenticated, mealsMiddleware.checkValidId, mealsMiddleware.isMealCreator, mealController.edit);
+router.delete('/:id', secureMiddleware.isAuthenticated,  mealsMiddleware.checkValidId, mealsMiddleware.isMealCreator, mealController.delete);
 
 module.exports = router;

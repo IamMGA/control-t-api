@@ -57,4 +57,16 @@ module.exports.edit = (req, res, next) => {
         next(new ApiError(error.message, 500));
       }
     });
-  }
+}
+
+module.exports.delete = (req, res, next) => {
+  const id = req.params.id;
+  Meal.findByIdAndRemove(id)
+    .then(meal => {
+      if (meal) {
+        res.status(204).json()
+      } else {
+        next(new ApiError(`Meal not found`, 404));
+      }
+    }).catch(error => next(error));
+}
