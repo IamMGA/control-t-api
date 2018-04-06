@@ -1,7 +1,7 @@
 const passport = require('passport');
 const ApiError = require('../models/api-error.model');
 
-module.exports.create = (req, res, next) => {
+module.exports.log = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -26,7 +26,7 @@ module.exports.create = (req, res, next) => {
   }
 };
 
-module.exports.destroy = (req, res, next) => {
+module.exports.logout = (req, res, next) => {
   req.logout();
   res.status(204).json();
 };

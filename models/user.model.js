@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 
 const userSchema = new mongoose.Schema({
@@ -15,14 +15,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'User needs a password']
   },
+  nickName: {
+    type: String,
+    lowercase: true,
+    required: [true, 'Nick is required']
+  },
   info: {
     sex: {
       type: Number,
-      required: [true, 'Sex is required'],
+      min: [0, 'Undefined Sex'],
+      max: [1, 'Undefined Sex'],
+      required: [true, 'Sex is required']
     },
     weight: {
       type: Number,
-      required: [true, 'Weight is required'],
+      required: [true, 'Weight is required']
     },
     stature: {
       type: Number,
@@ -34,11 +41,12 @@ const userSchema = new mongoose.Schema({
     },
     activity: {
       type: Number,
+      min: [0, 'Undefined activity'],
+      max: [4, 'Undefined activity'],
       required: [true, 'Activity is required']
     }
   }
-},
-{ 
+}, {
   timestamps: true,
   toJSON: {
     transform: (doc, ret) => {
@@ -50,6 +58,41 @@ const userSchema = new mongoose.Schema({
     }
   }
 });
+
+userSchema.virtual('dayCalories')
+  .get(function () {
+    let tmb;
+    switch (this.info.sex) {
+      case 0:
+        tmb = 655 + (9.6 * this.info.weight) + (1.8 * this.info.stature) - (4.7 * this.info.age)
+        break;
+      case 1:
+        tmb = 66 + (13.7 * this.info.weight) + (5 * this.info.stature) - (6.8 * this.info.age)
+        break;
+      default:
+        break;
+    }
+    switch (this.info.activity) {
+      case 0:
+        tmb = tmb * 1.2;
+        break;
+      case 1:
+        tmb = tmb * 1.375;
+        break;
+      case 2:
+        tmb = tmb * 1.55;
+        break;
+      case 3:
+        tmb = tmb * 1725;
+        break;
+      case 4:
+        tmb = tmb * 1.9;
+        break;
+      default:
+        break;
+    }
+    return tmb;
+  })
 
 userSchema.pre('save', function save(next) {
   const user = this;

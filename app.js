@@ -14,6 +14,7 @@ require('./configs/passport.config').setup(passport);
 const usersRoutes = require('./routes/users.routes');
 const sessionRoutes = require('./routes/session.routes');
 const mealRoutes = require('./routes/meal.routes');
+const intakesRoutes = require('./routes/intake.route');
 
 const app = express();
 
@@ -36,15 +37,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  res.locals.session = req.user || {};
-  next();
-});
-
 //Routes
 app.use('/users', usersRoutes);
 app.use('/session', sessionRoutes);
 app.use('/meals', mealRoutes);
+app.use('/intakes', intakesRoutes)
 
 // catch 404 and forward to error handler
 app.use((req, res, next)  => {

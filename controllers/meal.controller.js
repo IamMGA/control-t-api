@@ -10,8 +10,7 @@ module.exports.list = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   const meal = new Meal(req.body);
-  meal.creator = res.locals.session._id;
-
+  meal.creator = req.user._id;
   meal.save()
     .then(() => {
       res.status(201).json(meal);

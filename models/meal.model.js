@@ -6,6 +6,7 @@ const mealSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    lowercase: true,
     required: [true, 'Product name is required']
   },
   specNutritions: {

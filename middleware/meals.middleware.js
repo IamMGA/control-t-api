@@ -13,14 +13,15 @@ module.exports.checkValidId = (req, res, next) => {
 
 module.exports.isMealCreator = (req , res, next) =>{
   const id = req.params.id;
-  Meal.findById(id)
-    .then(meal => {
-      if (meal.creator.toString() === res.locals.session._id.toString()) {
-        next();
-      }else{
-          next(new ApiError('Only the creator can modify it'));  
-      }
-    })
+    Meal.findById(id)
+        .then(meal => {
+            if (meal.creator.toString() === req.user._id.toString()) {
+                next();
+            } else{
+                next(new ApiError('Not the owner', 401));   
+            }
+        })
+        .catch(error => next(new ApiError(error, 500)))
 }
 
 
