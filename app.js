@@ -4,9 +4,11 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const corsConfig = require('./configs/cors.config');
 
 require('./configs/db.config');
 require('./configs/passport.config').setup(passport);
@@ -17,6 +19,8 @@ const mealRoutes = require('./routes/meal.routes');
 const intakesRoutes = require('./routes/intake.route');
 
 const app = express();
+
+app.use(cors(corsConfig))
 
 app.use(logger('dev'));
 

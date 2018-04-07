@@ -53,3 +53,15 @@ module.exports.addIntake = (req, res, next) => {
       }
     })
 }
+
+module.exports.deleteIntake = (req, res, next) => {
+  const id = req.params.id;
+  Intake.findByIdAndRemove(id)
+    .then(intake => {
+      if (intake) {
+        res.status(204).json()
+      } else {
+        next(new ApiError(`Intake not found`, 404));
+      }
+    }).catch(error => next(error));
+}
