@@ -15,16 +15,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'User needs a password']
   },
-  nickName: {
+  nickname: {
     type: String,
     lowercase: true,
     required: [true, 'Nick is required']
   },
   info: {
     sex: {
-      type: Number,
-      min: [0, 'Undefined Sex'],
-      max: [1, 'Undefined Sex'],
+      type: String,
       required: [true, 'Sex is required']
     },
     weight: {
@@ -40,9 +38,7 @@ const userSchema = new mongoose.Schema({
       required: [true, 'Age is required']
     },
     activity: {
-      type: Number,
-      min: [0, 'Undefined activity'],
-      max: [4, 'Undefined activity'],
+      type: String,
       required: [true, 'Activity is required']
     }
   }
@@ -63,29 +59,29 @@ userSchema.virtual('dayCalories')
   .get(function () {
     let tmb;
     switch (this.info.sex) {
-      case 0:
+      case "women":
         tmb = 655 + (9.6 * this.info.weight) + (1.8 * this.info.stature) - (4.7 * this.info.age)
         break;
-      case 1:
+      case "men":
         tmb = 66 + (13.7 * this.info.weight) + (5 * this.info.stature) - (6.8 * this.info.age)
         break;
       default:
         break;
     }
     switch (this.info.activity) {
-      case 0:
+      case "sedentary":
         tmb = tmb * 1.2;
         break;
-      case 1:
+      case "light":
         tmb = tmb * 1.375;
         break;
-      case 2:
+      case "moderate":
         tmb = tmb * 1.55;
         break;
-      case 3:
+      case "intense":
         tmb = tmb * 1725;
         break;
-      case 4:
+      case "extreme":
         tmb = tmb * 1.9;
         break;
       default:
