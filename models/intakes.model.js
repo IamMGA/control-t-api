@@ -4,10 +4,10 @@ const intakeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:"User"
   },
-  meals: {
-    type: [mongoose.Schema.Types.ObjectId], 
+  meal: {
+    type: mongoose.Schema.Types.ObjectId, 
     ref:"Meal",
-    default: []
+    required: [true, 'Meal required']
   }
 }, {
   timestamps: true,

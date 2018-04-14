@@ -14,6 +14,7 @@ module.exports.todayIntakes = (req, res, next) => {
       },
       "user": req.user._id
     })
+    .populate('meal','specNutritions , name')
     .then(intakes => res.json(intakes))
     .catch(error => next(error));
 }
@@ -40,9 +41,9 @@ module.exports.intakesByDates = (req, res, next) => {
 module.exports.addIntake = (req, res, next) => {
   const intake = new Intake(req.body);
   intake.user = req.user._id;
-  if (!intake.meals.length) {
-    next(new ApiError(`Empty Intake`, 404));
-  }
+  // if (!intake.meals.length) {
+  //   next(new ApiError(`Empty Intake`, 404));
+  // }
   intake.save()
     .then(() => {
       res.status(201).json(intake);
