@@ -3,7 +3,7 @@ const Meal = require('../models/meal.model');
 const ApiError = require('../models/api-error.model');
 
 module.exports.list = (req, res, next) => {
-  Meal.find()
+  Meal.find().select('-creator')
     .then(meal => res.json(meal))
     .catch(error => next(error));
 }
