@@ -18,7 +18,10 @@ module.exports.log = (req, res, next) => {
           if (error) {
             next(new ApiError(error.message, 500));
           } else {
-            res.status(201).json(req.user);
+            user = req.user;
+            user.calories = req.user.dayCalories;
+            // console.log(user);
+            res.status(201).json(user);
           }
         });
       }

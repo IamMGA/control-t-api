@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     required: [true, 'Nick is required']
   },
+  calories: {
+    type: Number,
+  },
   info: {
     sex: {
       type: String,
@@ -57,10 +60,10 @@ const userSchema = new mongoose.Schema({
 
 userSchema.virtual('dayCalories')
   .get(function () {
-    let tmb;
+    var tmb;
     switch (this.info.sex) {
       case "women":
-        tmb = 655 + (9.6 * this.info.weight) + (1.8 * this.info.stature) - (4.7 * this.info.age)
+        tmb = 655 + (9.6 * this.info.weight) + (1.8 * this.info.stature) - (4.7 * this.info.age);
         break;
       case "men":
         tmb = 66 + (13.7 * this.info.weight) + (5 * this.info.stature) - (6.8 * this.info.age)
