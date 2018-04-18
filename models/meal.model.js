@@ -32,13 +32,16 @@ const mealSchema = new mongoose.Schema({
     },
     others: {
       sugar: {
-        type: Number
+        type: Number,
+        default: 0
       },
       cholesterol: {
-        type: Number
+        type: Number,
+        default: 0
       },
       caffeine: {
-        type: Number
+        type: Number,
+        default: 0
       }
     }
   }
