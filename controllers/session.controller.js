@@ -20,7 +20,6 @@ module.exports.log = (req, res, next) => {
           } else {
             user = req.user;
             user.calories = req.user.dayCalories;
-            // console.log(user);
             res.status(201).json(user);
           }
         });
